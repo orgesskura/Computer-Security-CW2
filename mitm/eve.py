@@ -32,14 +32,14 @@ print('PRETENDING TO BE BOB...')
 player1 = 'bob'
 bob_socket, bob_aes = setup(player1, BUFFER_DIR, BUFFER_FILE_NAME)
 os.rename(BUFFER_DIR + BUFFER_FILE_NAME, BUFFER_DIR + "new_buffer")
-print('SOCKETS FOR COMMUNICATION WITH BOB ESTABLISHED!')
+print('SOCKETS FOR COMMUNICATION WITH BOB ESTABLISHED! YEAHHHHHHHH')
 
 
 # establish a socket pretending to be alice
 print('PRETENDING TO BE ALICE...')
 player2 = 'alice'
 alice_socket, alice_aes = setup(player2, BUFFER_DIR, BUFFER_FILE_NAME)
-print('SOCKETS FOR COMMUNICATION WITH ALICE ESTABLISHED!')
+print('SOCKETS FOR COMMUNICATION WITH ALICE ESTABLISHED! HELL YEAHHHHHH')
 
 
 
@@ -83,7 +83,7 @@ elif args.custom:
     
     dialog.chat('Bob said: "{}"'.format(received_from_bob))
 
-    # Prompt the user for alice's message
+    # Prompt the user for Bob's message
     dialog.prompt('Input what you would like Bob to say to Alice')
     bob_send = input()
 
@@ -93,7 +93,7 @@ elif args.custom:
     received_from_alice = receive_and_decrypt(bob_aes, bob_socket)
     dialog.chat('Alice said: "{}"'.format(received_from_alice))
 
-    # Prompt the user for bob's message
+    # Prompt the user for Alice's message
     dialog.prompt('Input what you would like Alice to say to Bob')
     alice_send = input()
 
