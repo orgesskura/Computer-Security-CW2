@@ -27,26 +27,27 @@ elif args.custom:
 print('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
 dialog = Dialog('print')
 
-
-# establish a socket pretending to be alice
-print('PRETENDING TO BE ALICE...')
-player1 = 'alice'
-alice_socket, alice_aes = setup(player1, BUFFER_DIR, BUFFER_FILE_NAME)
-
-print('SOCKETS FOR COMMUNICATION WITH ALICE ESTABLISHED!')
-
 # establish a socket pretending to be bob
 print('PRETENDING TO BE BOB...')
-player2 = 'bob'
-bob_socket, bob_aes = setup(player2, BUFFER_DIR, BUFFER_FILE_NAME)
+player1 = 'bob'
+bob_socket, bob_aes = setup(player1, BUFFER_DIR, BUFFER_FILE_NAME)
 os.rename(BUFFER_DIR + BUFFER_FILE_NAME, BUFFER_DIR + "new_buffer")
 print('SOCKETS FOR COMMUNICATION WITH BOB ESTABLISHED!')
 
 
+# establish a socket pretending to be alice
+print('PRETENDING TO BE ALICE...')
+player2 = 'alice'
+alice_socket, alice_aes = setup(player2, BUFFER_DIR, BUFFER_FILE_NAME)
+print('SOCKETS FOR COMMUNICATION WITH ALICE ESTABLISHED!')
 
 
 
-received_from_bob = receive_and_decrypt(alice_aes, alice_socket) # message from alice
+
+
+
+
+received_from_bob = receive_and_decrypt(alice_aes, alice_socket) # message from bob
 
 # If relay is the argument
 if args.relay:
@@ -57,15 +58,15 @@ if args.relay:
     dialog.info('Message sent! Waiting for reply...')
     received_from_alice = receive_and_decrypt(bob_aes, bob_socket)
 
-    dialog.chat('Alice said: "{}"'.format(received_from_Alice))
+    dialog.chat('Alice said: "{}"'.format(received_from_alice))
 
     encrypt_and_send(received_from_alice, alice_aes, alice_socket)
 
 #if Alice is not in mood to continue meeting Bob
 elif args.break_heart:
     
-    # Make alice send BAD_MSG instead of NICE_MSG to bob
-    to_send = BAD_MSG[player2] 
+    # Make bob send BAD_MSG instead of NICE_MSG to alice
+    to_send = BAD_MSG[player1] 
 
     encrypt_and_send(to_send, bob_aes, bob_socket)
     dialog.chat('Bob said: "{}"'.format(to_send))
@@ -73,7 +74,7 @@ elif args.break_heart:
     dialog.info('Message sent! Waiting for reply...')
     received_from_alice = receive_and_decrypt(bob_aes, bob_socket)
 
-    dialog.chat('Bob said: "{}"'.format(received_from_alice))
+    dialog.chat('Alice said: "{}"'.format(received_from_alice))
 
     encrypt_and_send(received_from_alice, alice_aes, alice_socket)
 
