@@ -1,6 +1,8 @@
 # Computer-Security-CW2
 Computer Security CW2
 
+Mark:100%
+
 In this coursework I touch upon a number of security-related topics, namely encrypting and decrypting with
 GPG, spoofing the sender of an email and performing a MitM attack(Man in the Middle attack). Full specifiactions can be found at cw2.pdf
 
